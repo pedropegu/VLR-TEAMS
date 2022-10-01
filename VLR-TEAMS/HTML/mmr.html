@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="mmr-files/CSS3/bootstrap.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
+    <title>VLR-TEAMS</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
+  </head>
+  <body class="bg-dark">
+    <!-- NAVBAR -->
+    <section>
+      <nav
+        class="navbar navbar-expand-lg navbar-red bg-red bg-gradient fixed-top py-3"
+        id="mainNav"
+      >
+        <div class="container-fluid container px-4 px-lg-5">
+          <a class="navbar-brand fw-bold fs-4" href="index.html">VLR TEAMS</a>
+          <button
+            class="navbar-toggler navbar-toggler-right"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarResponsive"
+            aria-controls="navbarResponsive"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-1">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="prueba2.html">Announcements</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Marketplace</a>
+              </li>
+            </ul>
+            <!-- botones-nav login / register -->
+            <div
+              class="btn-toolbar row"
+              role="toolbar"
+              aria-label="Toolbar with button groups"
+            >
+              <div
+                class="col col-md-3 btn-group offset-md-0"
+                role="group"
+                aria-label="Third group"
+              >
+                <button type="button" class="btn btn-dark">Login</button>
+              </div>
+              <div
+                class="col col-md-3 btn-group offset-md-2"
+                role="group"
+                aria-label="Third group"
+              >
+                <button type="button" class="btn btn-dark">Register</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </section>
+    <!--main -->
+    <section class="page-section-main">
+      <main>
+        <div class="container">
+          <div div class="container-fluid container px-4 px-lg-5 bg-dark">
+            <div class="row text-white">
+              <form class="form" action="" method="post">
+                <div class="form-group">
+                  <label for="User">Valorant User</label>
+                  <input
+                    name="InputUser"
+                    type="text"
+                    class="form-control"
+                    id="InputUser"
+                    aria-describedby="User"
+                    placeholder="Enter your Valorant User"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="inputHastag">Hastag</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="inputHastag"
+                    id="inputHastag"
+                    placeholder="Enter your Valorant Hastag"
+                  />
+                </div>
+                <br />
+                <input
+                  type="submit"
+                  value="Send"
+                  onclick="getMMR()"
+                  class="btn btn-primary"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+      </main>
+    </section>
+    <!-- footer -->
+    <section class="page-section-footer">
+      <footer>
+        <div class="footer-dark text-white bg-red bg-gradient">
+          <div class="container pb-footer">
+            <div class="row">
+              <div class="col-sm-3 col-sm-3 item mt-5">
+                <h3>Services</h3>
+                <ul style="list-style: url(index-files/Images/pin-angle.svg)">
+                  <li>
+                    <a href="status.html" class="text-white"
+                      >Valorant Server Satus</a
+                    >
+                  </li>
+                  <li>
+                    <a href="mmr.html" class="text-white">Get your real MMR</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-sm-6 col-md-3 item mt-5">
+                <h3>About</h3>
+                <ul style="list-style: url(index-files/Images/pin-angle.svg)">
+                  <li>
+                    <a href="https://github.com/venozs" class="text-white"
+                      >GitHub</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      onclick="navigator.clipboard.writeText('pedro.peralta.guerrero.alu@iesfernnadoaguilar.es'); alert('The e-mail has been copied');"
+                      class="text-white"
+                      >Email</a
+                    >
+                  </li>
+                  <li><a href="#" class="text-white">About us</a></li>
+                </ul>
+              </div>
+              <div class="col-md-6 item text mt-5">
+                <h3>VLR TEAMS</h3>
+                <p>
+                  We present a web application to search for teams, players,
+                  managers, coaches, etc. This project has been designed by
+                  Pedro Peralta Guerrero.
+                </p>
+              </div>
+            </div>
+            <p class="copyright">VLR TEAMS © 2022</p>
+          </div>
+        </div>
+      </footer>
+    </section>
+    <script src="mmr-files/JavaScript/mmr.js"></script>
+  </body>
+</html>
