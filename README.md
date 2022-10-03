@@ -80,7 +80,7 @@ Explicando cada uno de estos tenemos que:
 
 ### 	Entity Relationship.
 
-![](/home/pedro/Documentos/IAW/ESQUEMA/ER/ER-2.png)
+![](/home/pedro/Documentos/IAW/ESQUEMA/ER/ER-2.jpeg)
 
 
 
