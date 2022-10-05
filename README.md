@@ -74,7 +74,19 @@ Explicando cada uno de estos tenemos que:
 - **Cuerpo Técnico:**
 
   - **Coach**: Se trata del entrenador del equipo, este deberá seleccionar su cuenta de riot, la experiencia que tiene ejerciendo como Coach, información a añadir y si se encuentra actualmente en un equipo o no.
-  - **Analista**:
+  - **Analista**: 
+    
+
+- **Anuncios.**
+
+  Relacionando al temas de los anuncios, la idea de publicar anuncios está bien pero debemos poder responder a esa “oferta” de alguna manera, para ello había pensado en la siguiente solución:
+
+  El usuario que va a responder a la “oferta” tendrá un botón por el cual podrá rellenar un formulario que se le mandará por correo al usuario creador del anuncio.
+
+
+- **Marketplace.**
+
+Este apartado será el lugar donde se podrán buscar jugadores, estos no aparecerán en este apartado de forma inmediata sino que mediante un “tick” en la página el usuario podrá añadirse al Marketplace donde los equipos podrán buscarle y contactarle a través de correo como en los anuncios.
 
 
 
@@ -83,16 +95,6 @@ Explicando cada uno de estos tenemos que:
 ![ER-2](https://user-images.githubusercontent.com/95850823/193690125-cc30ca4b-6f80-4ca9-82fe-98c8b6997086.jpeg)
 
 
-
-#### Anuncios.
-
-Relacionando al temas de los anuncios, la idea de publicar anuncios está bien pero debemos poder responder a esa “oferta” de alguna manera, para ello había pensado en la siguiente solución:
-
-El usuario que va a responder a la “oferta” tendrá un botón por el cual podrá rellenar un formulario que se le mandará por correo al usuario creador del anuncio.
-
-#### Marketplace.
-
-Este apartado será el lugar donde se podrán buscar jugadores, estos no aparecerán en este apartado de forma inmediata sino que mediante un “tick” en la página el usuario podrá añadirse al Marketplace donde los equipos podrán buscarle y contactarle a través de correo como en los anuncios.
 
 
 
