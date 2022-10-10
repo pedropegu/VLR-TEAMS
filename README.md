@@ -56,32 +56,19 @@ Explicando cada uno de estos tenemos que:
 
   
 
-- **Staff:**
+- **Directivo:**
+
+  Se trata de aquellos usuarios que podrán crear un equipo / gestionarlo, estos constaran de lo siguiente: Cargo ( CEO / MANAGER ), experiencia , descripción breve.
 
   
+  
+- **Equipo**: Nombre, fecha de fundación y si se asignará sueldo a jugadores o no (Bool)
 
-  - **CEO:** Al seleccionar este campo se te dará la opción de inscribir a tu equipo del cual necesitarás el nombre, fecha de fundación, el número de integrantes que lo componen, y si se asignará sueldo a jugadores o no. También se podrá añadir una breve descripción no obligatoria.
-    NOTA: El ceo podrá añadir Managers haciendo uso del correo del usuario que va a ser Manager. Esto lo podrá hacer al crear el equipo o luego al editar este.
-
-  - **Mánager:** El CEO asignará managers los cuales podrán gestionar el equipo, es decir, añadir jugadores, cambiar la descripción.
-
-    
-
-    “Los managers y CEOs podrán publicar anuncios”
-
-    
-
-- **Cuerpo Técnico:**
-
-  - **Coach**: Se trata del entrenador del equipo, este deberá seleccionar su cuenta de riot, la experiencia que tiene ejerciendo como Coach, información a añadir y si se encuentra actualmente en un equipo o no.
-  - **Analista**: 
-    
+- **Entrenador:** Se trata del entrenador del equipo, este deberá seleccionar su cuenta de riot, la experiencia que tiene ejerciendo como Coach, información a añadir y si se encuentra actualmente en un equipo o no (Bool).
 
 - **Anuncios.**
 
-  Relacionando al temas de los anuncios, la idea de publicar anuncios está bien pero debemos poder responder a esa “oferta” de alguna manera, para ello había pensado en la siguiente solución:
-
-  El usuario que va a responder a la “oferta” tendrá un botón por el cual podrá rellenar un formulario que se le mandará por correo al usuario creador del anuncio.
+  Los directivos podrán colgar anuncios los cuales estarán compuestos de: Titular, mensaje.
 
 
 - **Marketplace.**
@@ -93,7 +80,7 @@ Este apartado será el lugar donde se podrán buscar jugadores, estos no aparece
 ### 	Entity Relationship.
 
 
-![ER-IAW](https://user-images.githubusercontent.com/95850823/194142660-6702e98f-bb34-4e5e-984f-9cda64298dfe.jpeg)
+![ER-OFICIAL](/home/pedro/Documentos/IAW/ESQUEMA/ER/oficial.jpeg)
 
 
 
