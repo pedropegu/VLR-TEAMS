@@ -73,8 +73,7 @@ Explicando cada uno de estos tenemos que:
 
 - **Marketplace.**
 
-Este apartado será el lugar donde se podrán buscar jugadores, estos no aparecerán en este apartado de forma inmediata sino que mediante un “tick” en la página el usuario podrá añadirse al Marketplace donde los equipos podrán buscarle y contactarle a través de correo como en los anuncios.
-
+Este apartado será el lugar donde se podrán buscar jugadores o entrenadres.
 
 
 ### 	Entity Relationship.
