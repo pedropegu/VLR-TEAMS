@@ -79,7 +79,8 @@ Este apartado será el lugar donde se podrán buscar jugadores o entrenadres.
 ### 	Entity Relationship.
 
 
-![oficial](https://user-images.githubusercontent.com/95850823/194899660-d70f152d-0e96-4e48-adca-b526fad3e129.jpeg)
+![oficial](https://user-images.githubusercontent.com/95850823/194953871-da4cb469-3efd-48b5-a776-c40c835ae7d1.jpeg)
+
 
 
 
