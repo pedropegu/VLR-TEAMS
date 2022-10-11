@@ -78,7 +78,13 @@ Este apartado será el lugar donde se podrán buscar jugadores, estos no aparece
 
 
 ### 	Entity Relationship.
-![oficial](/home/pedro/Documentos/IAW/GITHUB/ESQUEMA/ER/oficial.jpeg)
+
+![oficial](https://user-images.githubusercontent.com/95850823/195021883-987caf7b-1db4-40ca-a6ed-74778d0ceae0.jpeg)
+
+### 	MR.
+
+![MR](https://user-images.githubusercontent.com/95850823/195021961-7c6b42ef-fc96-4255-8fa4-827f7a4d076a.jpeg)
+
 
 
 
