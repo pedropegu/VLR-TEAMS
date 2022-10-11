@@ -73,18 +73,12 @@ Explicando cada uno de estos tenemos que:
 
 - **Marketplace.**
 
-Este apartado será el lugar donde se podrán buscar jugadores o entrenadres.
+Este apartado será el lugar donde se podrán buscar jugadores, estos no aparecerán en este apartado de forma inmediata sino que mediante un “tick” en la página el usuario podrá añadirse al Marketplace donde los equipos podrán buscarle y contactarle a través de correo como en los anuncios.
+
 
 
 ### 	Entity Relationship.
-<<<<<<< HEAD
-
-
-![oficial](https://user-images.githubusercontent.com/95850823/194953871-da4cb469-3efd-48b5-a776-c40c835ae7d1.jpeg)
-
-=======
 ![oficial](/home/pedro/Documentos/IAW/GITHUB/ESQUEMA/ER/oficial.jpeg)
->>>>>>> 6babb82 (ER/MR + Models.py)
 
 
 
