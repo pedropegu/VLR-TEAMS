@@ -19,5 +19,6 @@ from VLR_APP.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('teams/', TeamListView.as_view())
+    path('teams/',TeamListView.as_view()),
+    path('teams/<int:pk>/', TeamListViewDetail.as_view(), name='team-detail')
 ]
