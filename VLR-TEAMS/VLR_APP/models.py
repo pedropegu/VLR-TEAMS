@@ -27,7 +27,7 @@ class team(models.Model):
     foundation_date = models.DateField() 
     city = models.CharField(max_length=30)
 
-    Info = models.CharField(max_length=300)
+    info = models.CharField(max_length=300)
     
 
     def __str__(self):
