@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Team</h2>
+    <h2>{{ team.name }}</h2>
     <ul>
-        <li>{{ object.name }}</li>
-        <li> {{ object.city }}</li>
-        <li>{{ object.foundation_date }}</li>
+        <li style="list-style: none"><b>Nombre:</b> {{ object.name }}</li>
+        <li style="list-style: none"><b>Ciudad:</b> {{ object.city }}</li>
+        <li style="list-style: none"><b>Fecha de fundación:</b> {{ object.foundation_date }}</li>
+        <li style="list-style: none"><b>Información:</b> {{ object.info }}</li>
     </ul>
 {% endblock %}

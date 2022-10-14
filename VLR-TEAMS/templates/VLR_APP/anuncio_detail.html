@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ anuncio.title }}</h2>
+    <ul>
+        <li style="list-style: none"><b>Title:</b> {{ anuncio.title }}</li>
+        <li style="list-style: none"><b>Message:</b> {{ object.message }}</li>
+        <li style="list-style: none"><b>Directivo:</b> {{ object.directivo }}</li>
+    </ul>
+{% endblock %}

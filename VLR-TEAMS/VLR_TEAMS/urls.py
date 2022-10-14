@@ -19,6 +19,16 @@ from VLR_APP.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('teams/',TeamListView.as_view()),
-    path('teams/<int:pk>/', TeamListViewDetail.as_view(), name='team-detail')
+    path('teams/',TeamListView.as_view(), name="team-list"),
+    path('teams/<int:pk>/', TeamListViewDetail.as_view(), name='team-detail'),
+    path('clients/', ClientListView.as_view(), name="client-list"),
+    path('clients/<int:pk>/', ClientDetailView.as_view(), name="client-detail"),
+    path('directivos/', DirectivoListView.as_view(), name="directivo-list"),
+    path('directivos/<int:pk>/', DirectivoDetailView.as_view(), name="directivo-detail"),
+    path('players/', PlayerListView.as_view(), name="player-list"),
+    path('players/<int:pk>/', PlayerDetailView.as_view(), name="player-detail"),
+    path('coaches/', CoachListView.as_view(), name="coach-list"),
+    path('coaches/<int:pk>/', CoachDetailView.as_view(), name="coach-detail"),
+    path('anuncios/', AnuncioListView.as_view(), name="anuncios-list"),
+    path('anuncios/<int:pk>/', AnuncioDetailView.as_view(), name="anuncios-detail"),
 ]

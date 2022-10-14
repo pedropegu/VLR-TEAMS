@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Directivos</h2>
+    <ul>
+
+        {% for directivo in object_list %}
+            <li><a href="{% url 'directivo-detail' directivo.client.id %}">{{ directivo.client }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

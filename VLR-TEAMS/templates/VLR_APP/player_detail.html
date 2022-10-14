@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ object.client }}</h2>
+    <ul>
+        <li style="list-style: none"><b>Riot Account:</b> {{ object.riot }}</li>
+        <li style="list-style: none"><b>Rol:</b> {{ object.primary_rol }}</li>
+        <li style="list-style: none"><b>Horario:</b> {{ object.horarios }}</li>
+        <li style="list-style: none"><b>Experiencia:</b> {{ object.experience }}</li>
+    </ul>
+{% endblock %}
