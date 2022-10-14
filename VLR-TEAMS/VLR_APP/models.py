@@ -2,6 +2,7 @@
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 # Create your models here.
 
 class client(models.Model):
@@ -30,6 +31,10 @@ class team(models.Model):
     info = models.CharField(max_length=300)
     
 
+
+    def get_absolute_url(self):
+        return reverse('team-detail', kwargs={'pk': self.pk})
+
     def __str__(self):
         return self.name
 
@@ -43,7 +48,7 @@ class directivo(models.Model):
     #RELACIONES
 
     client = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    team = models.ForeignKey(team, on_delete=models.CASCADE)
+    team = models.ForeignKey(team, on_delete=models.SET_NULL, blank=True, null=True)
 
     #ATRIBUTOS
 
@@ -72,7 +77,7 @@ class player(models.Model):
     #RELACIONES
 
     client = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    team = models.ForeignKey(team, on_delete=models.CASCADE, blank=True, null=True)
+    team = models.ForeignKey(team, on_delete=models.SET_NULL, blank=True, null=True)
 
     # ATRIBUTOS
 
@@ -97,7 +102,7 @@ class coache(models.Model):
     #RELACIONES
 
     client = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    team = models.ForeignKey(team, on_delete=models.CASCADE, blank=True, null=True)
+    team = models.ForeignKey(team, on_delete=models.SET_NULL, blank=True, null=True)
 
     #ATRIBUTOS
 

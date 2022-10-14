@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    <h2>VISTAS</h2>
+    <ul>
+        <li><a href="{% url 'directivo-list' %}">Directivos</a></li>
+        <li><a href="{% url 'client-list' %}">Clientes</a></li>
+        <li><a href="{% url 'player-list' %}" >Jugadores</a></li>
+        <li><a href="{% url 'team-list' %}" >Equipos</a></li>
+        <li><a href="{% url 'anuncios-list' %}" >Anuncios</a></li>
+        <li><a href="{% url 'coach-list' %}" >Entrenadores</a></li>
+
+    </ul>
+
+{% else %}
+
+    LOGIN MONSTRUO
+
+{% endif %}
+{% endblock %}

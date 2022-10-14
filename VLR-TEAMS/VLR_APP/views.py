@@ -1,8 +1,14 @@
+
 from django.shortcuts import render
 from VLR_APP.models import *
 from django.views.generic import *
-
+from django.urls import reverse_lazy
 # Create your views here.
+
+#DEFAULT VIEW
+def DefaultView(request):
+    return render(request, 'VLR_APP/default.html', {})
+
 
 #TEAMS
 class TeamListView(ListView):
@@ -10,6 +16,22 @@ class TeamListView(ListView):
 
 class TeamListViewDetail(DetailView):
     queryset = team.objects.all()
+
+class TeamCreateView(CreateView):
+    model = team
+    fields=["name","foundation_date","city","info"]
+
+class TeamUpdateView(UpdateView):
+    model = team
+
+class TeamDeleteView(DeleteView):
+    model = team
+    success_url = reverse_lazy('team-list')
+
+
+
+
+
 
 #CLIENTES
 class ClientListView(ListView):
