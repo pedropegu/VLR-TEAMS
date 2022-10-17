@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('teams/',TeamListView.as_view(), name="team-list"),
     path('teams/<int:pk>/', TeamListViewDetail.as_view(), name='team-detail'),
-    path('teams/add', TeamCreateView.as_view(), name='team-add'),
+    path('teams/add/', TeamCreateView.as_view(), name='team-add'),
     path('teams/<int:pk>/delete', TeamDeleteView.as_view(), name='team-delete'),
     path('clients/', ClientListView.as_view(), name="client-list"),
     path('clients/<int:pk>/', ClientDetailView.as_view(), name="client-detail"),
