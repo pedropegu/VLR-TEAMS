@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    'crispy_forms',
     'django_extensions',
     'VLR_APP.apps.VlrAppConfig',
     'django.contrib.admin',
