@@ -5,7 +5,7 @@
     <ul>
 
         {% for team in object_list %}
-            <li><a href="{% url 'team-detail' team.id %}">{{ team.name }}</a> <a href={% url 'team-delete' team.id%}>Delete</a></li>
+            <li><a href="{% url 'team-detail' team.id %}">{{ team.name }}</a> <a href={% url 'team-delete' team.id%}>Delete</a> <a href={% url 'team-update' team.id%}>Update</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

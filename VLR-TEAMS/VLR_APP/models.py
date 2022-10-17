@@ -16,7 +16,8 @@ class client(models.Model):
     fnac = models.DateField()
     description = models.CharField(max_length=200)
 
-
+    def get_absolute_url(self):
+        return reverse('anuncios-detail', kwargs={'pk': self.pk})
     def __str__(self) -> str:
         return self.user.username
 
@@ -58,7 +59,8 @@ class directivo(models.Model):
         default=Position.CEO,
     )
     experience = models.CharField(max_length=300, blank=True) 
-
+    def get_absolute_url(self):
+        return reverse('anuncios-detail', kwargs={'pk': self.pk})
     def __str__(self):
         return self.client.username
 
@@ -93,7 +95,8 @@ class player(models.Model):
 
 
     experience = models.CharField(max_length=300)
-
+    def get_absolute_url(self):
+        return reverse('anuncios-detail', kwargs={'pk': self.pk})
     def __str__(self):
         return self.client.username
 
@@ -107,7 +110,8 @@ class coache(models.Model):
     #ATRIBUTOS
 
     experience = models.CharField(max_length=300)
-
+    def get_absolute_url(self):
+        return reverse('anuncios-detail', kwargs={'pk': self.pk})
     def __str__(self):
         return self.client.username
 
@@ -121,6 +125,9 @@ class anuncio(models.Model):
 
     title = models.CharField(max_length=30)
     message = models.CharField(max_length=500)
+
+    def get_absolute_url(self):
+        return reverse('anuncios-detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.title
