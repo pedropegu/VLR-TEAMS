@@ -17,7 +17,7 @@ class client(models.Model):
     description = models.CharField(max_length=200)
 
     def get_absolute_url(self):
-        return reverse('anuncios-detail', kwargs={'pk': self.pk})
+        return reverse('client-detail', kwargs={'pk': self.pk})
     def __str__(self) -> str:
         return self.user.username
 
@@ -60,7 +60,7 @@ class directivo(models.Model):
     )
     experience = models.CharField(max_length=300, blank=True) 
     def get_absolute_url(self):
-        return reverse('anuncios-detail', kwargs={'pk': self.pk})
+        return reverse('directivo-detail', kwargs={'pk': self.pk})
     def __str__(self):
         return self.client.username
 
@@ -96,7 +96,7 @@ class player(models.Model):
 
     experience = models.CharField(max_length=300)
     def get_absolute_url(self):
-        return reverse('anuncios-detail', kwargs={'pk': self.pk})
+        return reverse('player-detail', kwargs={'pk': self.pk})
     def __str__(self):
         return self.client.username
 
@@ -111,7 +111,7 @@ class coache(models.Model):
 
     experience = models.CharField(max_length=300)
     def get_absolute_url(self):
-        return reverse('anuncios-detail', kwargs={'pk': self.pk})
+        return reverse('coach-detail', kwargs={'pk': self.pk})
     def __str__(self):
         return self.client.username
 

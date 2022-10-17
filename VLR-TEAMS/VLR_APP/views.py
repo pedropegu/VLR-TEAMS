@@ -58,7 +58,7 @@ class DirectivoCreateView(CreateView):
     fields=["client","team","position","experience"]
 class DirectivoDeleteView(DeleteView):
     model = directivo
-    success_url = reverse_lazy('directivos-list')
+    success_url = reverse_lazy('directivo-list')
 
 
 #JUGADORES
