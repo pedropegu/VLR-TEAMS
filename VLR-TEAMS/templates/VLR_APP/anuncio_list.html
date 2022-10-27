@@ -5,7 +5,7 @@
     <ul>
 
         {% for anuncios in object_list %}
-            <li><a href="{% url 'anuncios-detail' anuncios.id %}">{{ anuncios.title }}</a></li>
+            <li><a href="{% url 'anuncios-detail' anuncios.id %}">{{ anuncios.title }}</a> <a href={% url 'anuncios-delete' anuncios.id%}>Delete</a> <a href={% url 'anuncios-update' anuncios.id%}>Update</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

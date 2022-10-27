@@ -60,7 +60,7 @@ urlpatterns = [
     #ANUNCIOS
     path('anuncios/', AnuncioListView.as_view(), name="anuncios-list"),
     path('anuncios/<int:pk>/', AnuncioDetailView.as_view(), name="anuncios-detail"),
-    path('anuncios/add/', AnuncioCreateView.as_view(), name='anuncio-add'),
-    path('anuncios/<int:pk>/edit', AnuncioUpdateView.as_view(), name='anuncio-update'),
-    path('anuncios/<int:pk>/delete', AnuncioDeleteView.as_view(), name='anuncio-delete'),
+    path('anuncios/add/', AnuncioCreateView.as_view(), name='anuncios-add'),
+    path('anuncios/<int:pk>/edit', AnuncioUpdateView.as_view(), name='anuncios-update'),
+    path('anuncios/<int:pk>/delete', AnuncioDeleteView.as_view(), name='anuncios-delete'),
 ]

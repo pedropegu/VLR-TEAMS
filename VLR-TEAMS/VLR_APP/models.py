@@ -1,27 +1,24 @@
 
 from django.utils.translation import gettext_lazy as _
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
+
 # Create your models here.
 
-class client(models.Model):
-    
-    #RELACIONES
+class User(AbstractUser):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    #ATRIBUTOS
-
-    fnac = models.DateField()
-    description = models.CharField(max_length=200)
+    fnac = models.DateField(null=True,blank=True)
+    description = models.CharField(max_length=200,blank=True,null=True)
 
     def get_absolute_url(self):
         return reverse('client-detail', kwargs={'pk': self.pk})
-    def __str__(self) -> str:
-        return self.user.username
+    
 
-class team(models.Model):
+    def __str__(self) -> str:
+        return self.username
+
+class Team(models.Model):
 
 
     #ATRIBUTOS
@@ -39,7 +36,7 @@ class team(models.Model):
     def __str__(self):
         return self.name
 
-class directivo(models.Model):
+class Directivo(models.Model):
 
     class Position(models.TextChoices):
         CEO = "CEO", _("Ceo")
@@ -48,8 +45,8 @@ class directivo(models.Model):
     
     #RELACIONES
 
-    client = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    team = models.ForeignKey(team, on_delete=models.SET_NULL, blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    team = models.ForeignKey(Team, on_delete=models.SET_NULL, blank=True, null=True)
 
     #ATRIBUTOS
 
@@ -62,9 +59,9 @@ class directivo(models.Model):
     def get_absolute_url(self):
         return reverse('directivo-detail', kwargs={'pk': self.pk})
     def __str__(self):
-        return self.client.username
+        return self.user.username
 
-class player(models.Model):
+class Player(models.Model):
     
     #OPCIONES
 
@@ -78,8 +75,8 @@ class player(models.Model):
 
     #RELACIONES
 
-    client = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    team = models.ForeignKey(team, on_delete=models.SET_NULL, blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    team = models.ForeignKey(Team, on_delete=models.SET_NULL, blank=True, null=True)
 
     # ATRIBUTOS
 
@@ -98,14 +95,14 @@ class player(models.Model):
     def get_absolute_url(self):
         return reverse('player-detail', kwargs={'pk': self.pk})
     def __str__(self):
-        return self.client.username
+        return self.User.username
 
-class coache(models.Model):
+class Coache(models.Model):
 
     #RELACIONES
 
-    client = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    team = models.ForeignKey(team, on_delete=models.SET_NULL, blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    team = models.ForeignKey(Team, on_delete=models.SET_NULL, blank=True, null=True)
 
     #ATRIBUTOS
 
@@ -113,13 +110,13 @@ class coache(models.Model):
     def get_absolute_url(self):
         return reverse('coach-detail', kwargs={'pk': self.pk})
     def __str__(self):
-        return self.client.username
+        return self.user.username
 
-class anuncio(models.Model):
+class Anuncio(models.Model):
     
     #RELACIONES
 
-    directivo = models.ForeignKey(directivo, on_delete=models.CASCADE)
+    directivo = models.ForeignKey(Directivo, on_delete=models.CASCADE)
 
     #ATRIBUTOS
 

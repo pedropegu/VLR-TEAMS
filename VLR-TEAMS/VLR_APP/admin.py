@@ -1,13 +1,15 @@
 from django.contrib import admin
 from django.db import models
 from .models import *
+from django.contrib.auth.admin import UserAdmin
 
-# Register your models here.
-admin.site.register(team)
-admin.site.register(client)
-admin.site.register(player)
-admin.site.register(coache)
-admin.site.register(anuncio)
-admin.site.register(directivo)
+
+admin.site.register(User)
+admin.site.register(Team)
+
+admin.site.register(Player)
+admin.site.register(Coache)
+admin.site.register(Anuncio)
+admin.site.register(Directivo)
 
 

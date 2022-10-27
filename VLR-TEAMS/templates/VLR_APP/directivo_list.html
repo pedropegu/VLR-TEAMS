@@ -5,7 +5,7 @@
     <ul>
 
         {% for directivo in object_list %}
-            <li><a href="{% url 'directivo-detail' directivo.client.id %}">{{ directivo.client }}</a></li>
+            <li><a href="{% url 'directivo-detail' directivo.client.id %}">{{ directivo.client }}</a> <a href={% url 'directivo-delete' directivo.client.id%}>Delete</a> <a href={% url 'directivo-update' directivo.client.id%}>Update</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

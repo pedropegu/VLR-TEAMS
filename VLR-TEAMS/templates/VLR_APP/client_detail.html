@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>{{ team.name }}</h2>
+    <h2>{{ object }}</h2>
     <ul>
-        <li style="list-style: none"><b>Nombre:</b> {{ object.user }}</li>
+        <li style="list-style: none"><b>Nombre:</b> {{ object.username }}</li>
         <li style="list-style: none"><b>Email:</b> {{ object.email }}</li>
         <li style="list-style: none"><b>Fecha de nacimiento:</b> {{ object.fnac }}</li>
         <li style="list-style: none"><b>Información:</b> {{ object.description }}</li>

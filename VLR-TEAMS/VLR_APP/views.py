@@ -1,112 +1,119 @@
 
+
 from django.shortcuts import render
 from VLR_APP.models import *
 from django.views.generic import *
 from django.urls import reverse_lazy
+from .forms import *
+from .forms import *
 # Create your views here.
 
 #DEFAULT VIEW
+
 def DefaultView(request):
     return render(request, 'VLR_APP/default.html', {})
 
 
 #TEAMS
 class TeamListView(ListView):
-    model = team
+    model = Team
 class TeamListViewDetail(DetailView):
-    queryset = team.objects.all()
+    queryset = Team.objects.all()
 class TeamUpdateView(UpdateView):
-    queryset = team.objects.all()
+    queryset = Team.objects.all()
     fields=["name","foundation_date","city","info"]
 class TeamCreateView(CreateView):
-    model = team
+    model = Team
     fields=["name","foundation_date","city","info"]
 class TeamDeleteView(DeleteView):
-    model = team
+    model = Team
     success_url = reverse_lazy('team-list')
 
 
 #CLIENTES
 class ClientListView(ListView):
-    model = client
+    model = User
     template_name="VLR_APP/client_list.html"
 class ClientDetailView(DetailView):
-    queryset = client.objects.all()
+    queryset = User.objects.all()
     template_name="VLR_APP/client_detail.html"
 class ClientUpdateView(UpdateView):
-    queryset = client.objects.all()
-    fields=["user","fnac","description"]
+    queryset = User.objects.all()
+    fields=["username","email","first_name","last_name","fnac","description"]
+    template_name="VLR_APP/client_form.html"
 class ClientCreateView(CreateView):
-    model = client
-    fields=["user","fnac","description"]
+    model = User
+    form_class = SignUpForm  
+    template_name="VLR_APP/client_form.html"
 class ClientDeleteView(DeleteView):
-    model = client
-    success_url = reverse_lazy('Clients-list')
+    model = User
+    template_name="VLR_APP/client_confirm_delete.html"
+    success_url = reverse_lazy('client-list')
 
 
 #DIRECTIVOS
 class DirectivoListView(ListView):
-    model = directivo
+    model = Directivo
 class DirectivoDetailView(DetailView):
-    queryset = directivo.objects.all()
+    queryset = Directivo.objects.all()
     template_name="VLR_APP/directivo_detail.html"
 class DirectivoUpdateView(UpdateView):
-    queryset = directivo.objects.all()
+    queryset = Directivo.objects.all()
     fields=["client","team","position","experience"]
 class DirectivoCreateView(CreateView):
-    model = directivo
+    model = Directivo
     fields=["client","team","position","experience"]
 class DirectivoDeleteView(DeleteView):
-    model = directivo
+    model = Directivo
     success_url = reverse_lazy('directivo-list')
 
 
 #JUGADORES
 class PlayerListView(ListView):
-    model = player
+    model = Player
 class PlayerDetailView(DetailView):
-    queryset = player.objects.all()
+    queryset = Player.objects.all()
     template_name="VLR_APP/player_detail.html"
 class PlayerUpdateView(UpdateView):
-    queryset = player.objects.all()
+    queryset = Player.objects.all()
     fields=["client","team","riot","primary_rol","horarios","experience"]
 class PlayerCreateView(CreateView):
-    model = player
+    model = Player
     fields=["client","team","riot","primary_rol","horarios","experience"]
 class PlayerDeleteView(DeleteView):
-    model = player
+    model = Player
     success_url = reverse_lazy('player-list')
 
 
 #ENTRENADORES
 class CoachListView(ListView):
-    model = coache
+    model = Coache
 class CoachDetailView(DetailView):
-    queryset = coache.objects.all()
+    queryset = Coache.objects.all()
     template_name="VLR_APP/coach_detail.html"
 class CoachUpdateView(UpdateView):
-    queryset = coache.objects.all()
+    queryset = Coache.objects.all()
     fields=["client","team","experience"]
 class CoachCreateView(CreateView):
-    model = coache
+    model = Coache
     fields=["client","team","experience"]
 class CoachDeleteView(DeleteView):
-    model = coache
+    model = Coache
     success_url = reverse_lazy('coach-list')
 
 
 #ANUNCIOS
 class AnuncioListView(ListView):
-    model = anuncio
+    model = Anuncio
 class AnuncioDetailView(DetailView):
-    queryset = anuncio.objects.all()
+    queryset = Anuncio.objects.all()
     template_name="VLR_APP/anuncio_detail.html"
 class AnuncioUpdateView(UpdateView):
-    queryset = anuncio.objects.all()
+    queryset = Anuncio.objects.all()
     fields=["title","message"]
 class AnuncioCreateView(CreateView):
-    model = anuncio
+    model = Anuncio
     fields=["title","message","directivo"]
 class AnuncioDeleteView(DeleteView):
-    model = anuncio
+    model = Anuncio
     success_url = reverse_lazy('anuncios-list')

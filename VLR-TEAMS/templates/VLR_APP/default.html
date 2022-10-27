@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{% if user.is_authenticated %}
+
     <h2>VISTAS</h2>
     <ul>
         <li><a href="{% url 'directivo-list' %}">Directivos</a></li>
@@ -14,9 +14,4 @@
 
     </ul>
 
-{% else %}
-
-    LOGIN MONSTRUO
-
-{% endif %}
 {% endblock %}
