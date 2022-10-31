@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 
+{% load static %}
+{% block head %}
+
+<title>{% block title %} VLR | MARKETPLACE {% endblock %}</title>
+
+<link rel="stylesheet" href="{% static 'VLR_APP/style.css' %}">
+{% endblock %}
+
 {% block content %}
 
 

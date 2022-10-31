@@ -5,13 +5,18 @@ from VLR_APP.models import *
 from django.views.generic import *
 from django.urls import reverse_lazy
 from .forms import *
-from .forms import *
+
+#AUTORIZACIÓN
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
+
 # Create your views here.
 
 #DEFAULT VIEW
 
 def DefaultView(request):
-    return render(request, 'VLR_APP/default.html', {})
+    return render(request, 'index.html', {})
 
 
 #TEAMS
@@ -19,17 +24,38 @@ class TeamListView(ListView):
     model = Team
 class TeamListViewDetail(DetailView):
     queryset = Team.objects.all()
-class TeamUpdateView(UpdateView):
+
+
+class TeamUpdateView(UserPassesTestMixin,UpdateView):
     queryset = Team.objects.all()
     fields=["name","foundation_date","city","info"]
-class TeamCreateView(CreateView):
+
+    def test_func(self): #COMPROBAR SI ES PROPIETARIO (ERROR 403: FORBIDDEN)
+        try:
+            return self.request.user.directivo.team==Team.objects.get(pk=self.kwargs.get("pk"))
+        except:
+            return False
+
+class TeamCreateView(UserPassesTestMixin,CreateView):
     model = Team
     fields=["name","foundation_date","city","info"]
-class TeamDeleteView(DeleteView):
+
+    def test_func(self): #COMPROBAR SI ES DIRECTIVO (ERROR 403: FORBIDDEN)
+        try:
+            if self.request.user.directivo:
+                return True
+        except:
+            return False
+
+class TeamDeleteView(UserPassesTestMixin,DeleteView):
     model = Team
     success_url = reverse_lazy('team-list')
 
-
+    def test_func(self): #COMPROBAR SI ES PROPIETARIO (ERROR 403: FORBIDDEN)
+        try:
+            return self.request.user.directivo.team==Team.objects.get(pk=self.kwargs.get("pk"))
+        except:
+            return False
 #CLIENTES
 class ClientListView(ListView):
     model = User
@@ -59,10 +85,10 @@ class DirectivoDetailView(DetailView):
     template_name="VLR_APP/directivo_detail.html"
 class DirectivoUpdateView(UpdateView):
     queryset = Directivo.objects.all()
-    fields=["client","team","position","experience"]
+    fields=["user","team","position","experience"]
 class DirectivoCreateView(CreateView):
     model = Directivo
-    fields=["client","team","position","experience"]
+    fields=["user","team","position","experience"]
 class DirectivoDeleteView(DeleteView):
     model = Directivo
     success_url = reverse_lazy('directivo-list')
@@ -76,10 +102,10 @@ class PlayerDetailView(DetailView):
     template_name="VLR_APP/player_detail.html"
 class PlayerUpdateView(UpdateView):
     queryset = Player.objects.all()
-    fields=["client","team","riot","primary_rol","horarios","experience"]
+    fields=["user","team","riot","primary_rol","horarios","experience"]
 class PlayerCreateView(CreateView):
     model = Player
-    fields=["client","team","riot","primary_rol","horarios","experience"]
+    fields=["user","team","riot","primary_rol","horarios","experience"]
 class PlayerDeleteView(DeleteView):
     model = Player
     success_url = reverse_lazy('player-list')
@@ -93,10 +119,10 @@ class CoachDetailView(DetailView):
     template_name="VLR_APP/coach_detail.html"
 class CoachUpdateView(UpdateView):
     queryset = Coache.objects.all()
-    fields=["client","team","experience"]
+    fields=["user","team","experience"]
 class CoachCreateView(CreateView):
     model = Coache
-    fields=["client","team","experience"]
+    fields=["user","team","experience"]
 class CoachDeleteView(DeleteView):
     model = Coache
     success_url = reverse_lazy('coach-list')

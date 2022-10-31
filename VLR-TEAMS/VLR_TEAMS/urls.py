@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from VLR_APP.views import *
-
+from django.urls import path, include
 urlpatterns = [
     path('', DefaultView),
     path('admin/', admin.site.urls),
+    #LOGIN
+    path("accounts/", include("django.contrib.auth.urls")),
 
     #TEAM
     path('teams/',TeamListView.as_view(), name="team-list"),
