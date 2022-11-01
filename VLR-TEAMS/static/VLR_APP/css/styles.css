@@ -169,13 +169,13 @@ sup {
 }
 
 a {
-    color: #F64343;
+    color: #ffffff !important;
     text-decoration: none;
     background-color: transparent
 }
 
 a:hover {
-    color: #F64343;
+    color: #F64343 !important;
     text-decoration: underline
 }
 
@@ -10954,7 +10954,7 @@ a.text-dark:hover {
     #mainNav .navbar-nav>li.nav-item>a.nav-link.active:focus,
     #mainNav .navbar-nav>li.nav-item>a.nav-link.active:hover {
         color: #fff;
-        background: #1abc9c
+        background: red
     }
 
     #mainNav.navbar-shrink {
