@@ -11,12 +11,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
 
+from django.contrib.auth.forms import AuthenticationForm
 # Create your views here.
 
 #DEFAULT VIEW
 
-def DefaultView(request):
-    return render(request, 'index.html', {})
+class DefaultView(TemplateView):
+    template_name="index.html"
+
+    
 
 
 #TEAMS
