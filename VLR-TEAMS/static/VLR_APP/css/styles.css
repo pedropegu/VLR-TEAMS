@@ -175,7 +175,7 @@ a {
 }
 
 a:hover {
-    color: #F64343 !important;
+    color: red !important;
     text-decoration: underline
 }
 
@@ -2603,6 +2603,8 @@ textarea.form-control.is-invalid {
     }
 }
 
+
+
 .btn {
     display: inline-block;
     font-weight: 400;
@@ -2850,6 +2852,7 @@ fieldset:disabled a.btn {
     box-shadow: 0 0 0 .2rem rgba(222, 170, 12, .5)
 }
 
+
 .btn-danger {
     color: #fff;
     background-color: #dc3545;
@@ -2891,7 +2894,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-light {
-    color: #212529;
+    color: #212529 !important;
     background-color: #f8f9fa;
     border-color: #f8f9fa
 }
@@ -6892,7 +6895,7 @@ a.bg-primary:focus,
 a.bg-primary:hover,
 button.bg-primary:focus,
 button.bg-primary:hover {
-    background-color: #148f77 !important
+    background-color: red !important
 }
 
 .bg-secondary {
@@ -10916,7 +10919,7 @@ a.text-dark:hover {
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link {
-    color: #fff
+    color: #fff !important
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link:hover {
@@ -11014,13 +11017,17 @@ a.text-dark:hover {
     overflow: hidden
 }
 
+#mail {
+    color: #2c3e50 !important
+}
+
 .portfolio .portfolio-item .portfolio-item-caption {
     position: absolute;
     top: 0;
     left: 0;
     transition: all .2s ease-in-out;
     opacity: 0;
-    background-color: rgba(26, 188, 156, .9)
+    background-color: rgba(255, 64, 64, .8)
 }
 
 .portfolio .portfolio-item .portfolio-item-caption:hover {

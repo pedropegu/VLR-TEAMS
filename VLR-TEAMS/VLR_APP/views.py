@@ -66,18 +66,28 @@ class ClientListView(ListView):
 class ClientDetailView(DetailView):
     queryset = User.objects.all()
     template_name="VLR_APP/client_detail.html"
-class ClientUpdateView(UpdateView):
+class ClientUpdateView(UserPassesTestMixin,UpdateView):
     queryset = User.objects.all()
     fields=["username","email","first_name","last_name","fnac","description"]
-    template_name="VLR_APP/client_form.html"
+    template_name="VLR_APP/client_edit.html"
+    def test_func(self): #COMPROBAR SI ES EL USUARIO (ERROR 403: FORBIDDEN)
+        try:
+            return User.objects.get(pk=self.request.user.pk)==User.objects.get(pk=self.kwargs.get("pk"))
+        except:
+            return False
 class ClientCreateView(CreateView):
     model = User
     form_class = SignUpForm  
     template_name="VLR_APP/client_form.html"
-class ClientDeleteView(DeleteView):
+class ClientDeleteView(UserPassesTestMixin,DeleteView):
     model = User
     template_name="VLR_APP/client_confirm_delete.html"
     success_url = reverse_lazy('client-list')
+    def test_func(self): #COMPROBAR SI ES EL USUARIO (ERROR 403: FORBIDDEN)
+        try:
+            return User.objects.get(pk=self.request.user.pk)==User.objects.get(pk=self.kwargs.get("pk"))
+        except:
+            return False
 
 
 #DIRECTIVOS

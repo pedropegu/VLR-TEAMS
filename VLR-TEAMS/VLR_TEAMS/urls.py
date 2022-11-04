@@ -18,7 +18,7 @@ from django.urls import path
 from VLR_APP.views import *
 from django.urls import path, include
 urlpatterns = [
-    path('', DefaultView.as_view()),
+    path('', DefaultView.as_view(), name="home"),
     path('admin/', admin.site.urls),
     #LOGIN
     path("accounts/", include("django.contrib.auth.urls")),
@@ -34,8 +34,8 @@ urlpatterns = [
     path('clients/', ClientListView.as_view(), name="client-list"),
     path('clients/<int:pk>/', ClientDetailView.as_view(), name="client-detail"),
     path('register/', ClientCreateView.as_view(), name='clients-add'),
-    path('clients/<int:pk>/edit', ClientUpdateView.as_view(), name='clients-update'),
-    path('clients/<int:pk>/delete', ClientDeleteView.as_view(), name='clients-delete'),
+    path('clients/<int:pk>/edit', ClientUpdateView.as_view(), name='client-update'),
+    path('clients/<int:pk>/delete', ClientDeleteView.as_view(), name='client-delete'),
 
     #DIRECTIVOS
     path('directivos/', DirectivoListView.as_view(), name="directivo-list"),

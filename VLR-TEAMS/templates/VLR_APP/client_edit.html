@@ -40,23 +40,16 @@
 
             <div class="mb-md-5 mt-md-4 pb-5">
 
-              <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
+              <h2 class="fw-bold mb-2 text-uppercase">EDIT PROFILE</h2>
               <form method="post" class="col-lg-8 offset-lg-2">
 
                     {% csrf_token %}
                     {{ form|crispy }}
 
-                    <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
-
-                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Register</button>
+                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Confirm</button>
 
               </form>
 
-            </div>
-
-            <div>
-              <p class="mb-0">Do you have an account? <a href="/accounts/login" class="text-white-50 fw-bold">Login</a>
-              </p>
             </div>
 
           </div>
