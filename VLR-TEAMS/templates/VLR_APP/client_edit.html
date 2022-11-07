@@ -41,7 +41,7 @@
             <div class="mb-md-5 mt-md-4 pb-5">
 
               <h2 class="fw-bold mb-2 text-uppercase">EDIT PROFILE</h2>
-              <form method="post" class="col-lg-8 offset-lg-2">
+              <form method="post" class="col-lg-8 offset-lg-2" enctype="multipart/form-data">
 
                     {% csrf_token %}
                     {{ form|crispy }}

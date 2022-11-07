@@ -68,7 +68,7 @@ class ClientDetailView(DetailView):
     template_name="VLR_APP/client_detail.html"
 class ClientUpdateView(UserPassesTestMixin,UpdateView):
     queryset = User.objects.all()
-    fields=["username","email","first_name","last_name","fnac","description"]
+    fields=["username","email","first_name","last_name","fnac","description","image"]
     template_name="VLR_APP/client_edit.html"
     def test_func(self): #COMPROBAR SI ES EL USUARIO (ERROR 403: FORBIDDEN)
         try:

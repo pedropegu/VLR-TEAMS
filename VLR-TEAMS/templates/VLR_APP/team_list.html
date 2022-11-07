@@ -1,11 +1,78 @@
 {% extends "base.html" %}
-
+{% load static %}
+{% block title %}CLIENTES{% endblock %}
 {% block content %}
-    <h2>Team</h2>
-    <ul>
-
-        {% for team in object_list %}
-            <li><a href="{% url 'team-detail' team.id %}">{{ team.name }}</a> <a href={% url 'team-delete' team.id%}>Delete</a> <a href={% url 'team-update' team.id%}>Update</a></li>
-        {% endfor %}
-    </ul>
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+        <!-- Portfolio Section Heading-->
+        <div class="text-center">
+            <h2 class="page-section-heading text-secondary mb-0 d-inline-block">TEAMS</h2>
+        </div>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- Portfolio Grid Items-->
+        <div class="row justify-content-center">
+            <!-- Portfolio Items-->
+            {% for team in object_list %}
+            
+            <div class="col-md-6 col-lg-4 mb-5">
+                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal{{ forloop.counter0 }}">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                    </div>
+                    {% if team.image %}
+                   <img src="/media/{{ team.image }}" alt="Log Cabin" style="height: 238px; 
+                   width: 100%; "/>
+                   {% else %}
+                   <img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/cabin.png' %}" alt="Log Cabin" style="height: 238px; 
+                   width: 100%; "/>
+                   {%endif %}
+                </div>
+            </div>
+            <div class="portfolio-modal modal fade" id="portfolioModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal1Label" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                        <div class="modal-body text-center">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8">
+                                        <!-- Portfolio Modal - Title-->
+                                        <h2 class="portfolio-modal-title text-secondary mb-0">Tasty Cake</h2>
+                                        <!-- Icon Divider-->
+                                        <div class="divider-custom">
+                                            <div class="divider-custom-line"></div>
+                                            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                            <div class="divider-custom-line"></div>
+                                        </div>
+                                        <!-- Portfolio Modal - Image-->{% if user.image %}
+                                                                            <img src="/media/{{ user.image }}" alt="Log Cabin" style="height: 240px; width: 100%; "/>
+                                                                        {% else %}
+                                                                            <img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/cabin.png' %}" alt="Log Cabin"/>
+                                                                        {%endif %}
+                                        <!-- Portfolio Modal - Text-->
+                                        <br>
+                                        <p class="mb-5"><h2></h2>
+                                            <ul>
+                                                <li style="list-style: none"><b>Nombre:</b> {{ team.name }}</li>
+                                                <li style="list-style: none"><b>Ciudad:</b> {{ team.city }}</li>
+                                                <li style="list-style: none"><b>Fecha de fundación:</b> {{ team.foundation_date }}</li>
+                                                <li style="list-style: none"><b>Información:</b> {{ team.info }}</li>
+                                            </ul></p>
+                                        <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}

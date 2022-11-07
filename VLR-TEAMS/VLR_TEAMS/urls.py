@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from VLR_APP.views import *
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 urlpatterns = [
     path('', DefaultView.as_view(), name="home"),
     path('admin/', admin.site.urls),
@@ -65,4 +67,4 @@ urlpatterns = [
     path('anuncios/add/', AnuncioCreateView.as_view(), name='anuncios-add'),
     path('anuncios/<int:pk>/edit', AnuncioUpdateView.as_view(), name='anuncios-update'),
     path('anuncios/<int:pk>/delete', AnuncioDeleteView.as_view(), name='anuncios-delete'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

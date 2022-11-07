@@ -10,7 +10,7 @@ class User(AbstractUser):
 
     fnac = models.DateField(null=True,blank=True)
     description = models.CharField(max_length=200,blank=True,null=True)
-
+    image = models.ImageField(upload_to='img',null=True,blank=True)
     def get_absolute_url(self):
         return reverse('client-detail', kwargs={'pk': self.pk})
     
