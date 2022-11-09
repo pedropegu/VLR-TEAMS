@@ -19,11 +19,18 @@ from VLR_APP.views import *
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+
+from VLR_APP.api import router
 urlpatterns = [
     path('', DefaultView.as_view(), name="home"),
+
     path('admin/', admin.site.urls),
     #LOGIN
     path("accounts/", include("django.contrib.auth.urls")),
+    
+    #API
+    path('api/',include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     #TEAM
     path('teams/',TeamListView.as_view(), name="team-list"),

@@ -58,6 +58,7 @@ class Directivo(models.Model):
     experience = models.CharField(max_length=300, blank=True) 
     def get_absolute_url(self):
         return reverse('directivo-detail', kwargs={'pk': self.pk})
+    
     def __str__(self):
         return self.user.username
 

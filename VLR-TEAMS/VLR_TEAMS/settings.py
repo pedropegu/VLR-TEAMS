@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'crispy_forms',
     'django_extensions',
     'VLR_APP.apps.VlrAppConfig',
@@ -73,7 +74,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'VLR_TEAMS.wsgi.application'
 
-
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
