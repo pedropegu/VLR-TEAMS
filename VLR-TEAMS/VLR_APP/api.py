@@ -1,6 +1,5 @@
 from VLR_APP.models import *
-from django.urls import path, include
-from rest_framework import routers, serializers, viewsets
+from rest_framework import routers,serializers, viewsets
 
 #CLIENTES
 
@@ -18,7 +17,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class TeamSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Team
-        fields = ['name','foundation_date','city','info']
+        fields = ['url','name','foundation_date','city','info']
 
 class TeamViewSet(viewsets.ModelViewSet):
     queryset = Team.objects.all()
@@ -29,15 +28,47 @@ class TeamViewSet(viewsets.ModelViewSet):
 class DirectivoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Directivo
-        fields = ['team','position','experience']
+        fields = ['url','team','position','experience']
 
 class DirectivoViewSet(viewsets.ModelViewSet):
     queryset = Directivo.objects.all()
     serializer_class = DirectivoSerializer
 
-#ROUTER
-router = routers.DefaultRouter()
+#PLAYERS
+class PlayerSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Player
+        fields = ['url','team','position','experience']
 
-router.register(r'users', UserViewSet)
-router.register(r'teams', TeamViewSet)
-router.register(r'directivos', DirectivoViewSet)
+class PlayerViewSet(viewsets.ModelViewSet):
+    queryset = Player.objects.all()
+    serializer_class = PlayerSerializer
+#COACHES
+class CoachesSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Coache
+        fields = ['url','team','position','experience']
+
+class CoacheViewSet(viewsets.ModelViewSet):
+    queryset = Coache.objects.all()
+    serializer_class = CoachesSerializer
+
+#ANUNCIOS
+class AnunciosSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Anuncio
+        fields = ['url','team','position','experience']
+
+class AnuncioViewSet(viewsets.ModelViewSet):
+    queryset = Anuncio.objects.all()
+    serializer_class = AnunciosSerializer
+
+#REGISTER
+api = routers.DefaultRouter()
+api.register(r'users', UserViewSet)
+api.register(r'teams', TeamViewSet)
+api.register(r'executives', DirectivoViewSet)
+api.register(r'players', PlayerViewSet)
+api.register(r'coaches', CoacheViewSet)
+api.register(r'anuncios', AnuncioViewSet)
+
