@@ -25,7 +25,7 @@ from VLR_APP.api import *
 
 urlpatterns = [
     #VLR_APP
-    path('', include('VLR_APP.urls')),
+    path('', include(('VLR_APP.urls','vlr'),namespace="vlr")),
     #ADMIN
     path('admin/', admin.site.urls),
     #LOGIN

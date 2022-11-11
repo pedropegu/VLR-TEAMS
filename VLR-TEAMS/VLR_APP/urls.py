@@ -17,7 +17,7 @@ urlpatterns = [
     #CLIENTES
     path('clients/', ClientListView.as_view(), name="client-list"),
     path('clients/<int:pk>/', ClientDetailView.as_view(), name="client-detail"),
-    path('register/', ClientCreateView.as_view(), name='clients-add'),
+    path('register/', ClientCreateView.as_view(), name='client-add'),
     path('clients/<int:pk>/edit', ClientUpdateView.as_view(), name='client-update'),
     path('clients/<int:pk>/delete', ClientDeleteView.as_view(), name='client-delete'),
 
@@ -29,7 +29,7 @@ urlpatterns = [
     path('directivos/<int:pk>/delete', DirectivoDeleteView.as_view(), name='directivo-delete'),
 
     #JUGADORES
-    path('players/', PlayerListView.as_view(), name="player-list"),
+    path('players/', PlayerListView.as_view(), name="players-list"),
     path('players/<int:pk>/', PlayerDetailView.as_view(), name="player-detail"),
     path('players/add/', PlayerCreateView.as_view(), name='player-add'),
     path('players/<int:pk>/edit', PlayerUpdateView.as_view(), name='player-update'),

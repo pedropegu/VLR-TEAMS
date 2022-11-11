@@ -52,7 +52,7 @@ class TeamCreateView(UserPassesTestMixin,CreateView):
 
 class TeamDeleteView(UserPassesTestMixin,DeleteView):
     model = Team
-    success_url = reverse_lazy('team-list')
+    success_url = reverse_lazy('teams-list')
 
     def test_func(self): #COMPROBAR SI ES PROPIETARIO (ERROR 403: FORBIDDEN)
         try:
@@ -121,7 +121,7 @@ class PlayerCreateView(CreateView):
     fields=["user","team","riot","primary_rol","horarios","experience"]
 class PlayerDeleteView(DeleteView):
     model = Player
-    success_url = reverse_lazy('player-list')
+    success_url = reverse_lazy('players-list')
 
 
 #ENTRENADORES
