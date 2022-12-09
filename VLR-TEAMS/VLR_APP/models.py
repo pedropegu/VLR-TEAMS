@@ -7,12 +7,12 @@ from django.urls import reverse
 # Create your models here.
 
 class User(AbstractUser):
-
-    fnac = models.DateField(null=True,blank=True)
+    email = models.EmailField(unique=True)
+    fnac = models.DateField(null=False,blank=False)
     description = models.CharField(max_length=200,blank=True,null=True)
     image = models.ImageField(upload_to='img',null=True,blank=True)
     def get_absolute_url(self):
-        return reverse('client-detail', kwargs={'pk': self.pk})
+        return reverse('vlr:client-detail', kwargs={'pk': self.pk})
     
 
     def __str__(self) -> str:
@@ -93,10 +93,13 @@ class Player(models.Model):
 
 
     experience = models.CharField(max_length=300)
+    searching = models.BooleanField()
+    
     def get_absolute_url(self):
-        return reverse('player-detail', kwargs={'pk': self.pk})
+        return reverse('vlr:player-detail', kwargs={'pk': self.pk})
+        
     def __str__(self):
-        return self.User.username
+        return self.user.username
 
 class Coache(models.Model):
 

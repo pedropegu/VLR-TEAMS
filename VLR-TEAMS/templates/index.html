@@ -30,7 +30,7 @@
                         </li>
                         <li class="nav-item mx-0 mr-5"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">ABOUT</a>
                         </li>
-                        {% if not user.is_authenticated %}
+                        {% if not request.user.is_authenticated %}
                         <li class="nav-item mx-0 mr-5"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"></a></li>
                         <li class="nav-item mx-0 mr-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"></a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'login' %}">LOGIN</a>
@@ -126,7 +126,7 @@
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <button  onclick="window.location.href='{% url 'vlr:client-list' %}';" class="btn btn-danger btn-lg" role="button" aria-disabled="true">SEE MORE</button>
+                    <button  onclick="window.location.href='{% url 'vlr:marketplace' %}';" class="btn btn-danger btn-lg" role="button" aria-disabled="true">SEE MORE</button>
                </div>
             </div>
         </section>
@@ -389,8 +389,8 @@
                 <div class="row">
                     <!-- Footer Location-->
                     <div class="col-lg-4 mb-5 mb-lg-0">
-                        <h4 class="mb-4">NOTHING</h4>
-                        <p class="pre-wrap lead mb-0"> NOTHING</p>
+                        <h4 class="mb-4">FOUNDER</h4>
+                        <p class="pre-wrap lead mb-0"> Pedro Peralta Guerrero</p>
                     </div>
                     <!-- Footer Social Icons-->
                     <div class="col-lg-4 mb-5 mb-lg-0">
@@ -399,10 +399,9 @@
                     <!-- Footer About Text-->
                     <div class="col-lg-4">
                         <h4 class="mb-4">ABOUT VLR TEAMS</h4>
-                        <p class="pre-wrap lead mb-0">Nothing</p>
+                        <p class="pre-wrap lead mb-0">It is an application to search for players and teams.  </p>
                     </div>
                 </div>
-            </div>
         </footer>
         <!-- Copyright Section-->
         <section class="copyright py-4 text-center text-white">
@@ -415,9 +414,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
         <!-- Third party plugin JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-        <!-- Contact form JS-->
-        <script src="assets/mail/jqBootstrapValidation.js"></script>
-        <script src="assets/mail/contact_me.js"></script>
+
         <!-- Core theme JS-->
         <script src="{% static 'VLR_APP/js/scripts.js' %}"></script>
     </body>

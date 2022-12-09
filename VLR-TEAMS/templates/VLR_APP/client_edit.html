@@ -47,7 +47,13 @@
                     {{ form|crispy }}
 
                     <button class="btn btn-outline-light btn-lg px-5" type="submit">Confirm</button>
-
+                    <p></p>
+                    {% if not request.user.player %}
+                    <p class="mb-0">Do you want to be a player? <a href="{% url 'vlr:player-add' %}" class="text-white-50 fw-bold">Become a player</a>
+                    {% else %}
+                    <p class="mb-0">Want to stop being a player? <a href="{% url 'vlr:player-delete' user.id %}" class="text-white-50 fw-bold">Stop being a player</a>
+                      <p class="mb-0">Want to edit your player profile? <a href="{% url 'vlr:player-update' user.id %}" class="text-white-50 fw-bold">Edit your player profile</a>
+                    {% endif %}
               </form>
 
             </div>

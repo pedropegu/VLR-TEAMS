@@ -1,12 +1,13 @@
 {% extends "base.html" %}
+
 {% load static %}
-{% block title %}CLIENTES{% endblock %}
+{% block title %}MARKETPLACE{% endblock %}
 {% block content %}
 <section class="page-section portfolio" id="portfolio">
     <div class="container">
         <!-- Portfolio Section Heading-->
         <div class="text-center">
-            <h2 class="page-section-heading text-secondary mb-0 d-inline-block">CLIENTS</h2>
+            <h2 class="page-section-heading text-secondary mb-0 d-inline-block">MARKETPLACE</h2>
         </div>
         <!-- Icon Divider-->
         <div class="divider-custom">
@@ -17,16 +18,17 @@
         <!-- Portfolio Grid Items-->
         <div class="row justify-content-center">
             <!-- Portfolio Items-->
-            {% for user in object_list %}
-            
+            {% for player in object_list %}
+
+            {% if player.searching %}
             <div class="col-md-6 col-lg-4 mb-5">
                 {% comment %} <a href="{% url 'client-list' %}{{ user.id }}"> {% endcomment %}
                 <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal{{ forloop.counter0 }}">
                     <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                         <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                     </div>
-                    {% if user.image %}
-                   <img src="/media/{{ user.image }}" alt="Imagen Usuario" style="height: 238px; 
+                    {% if player.user.image %}
+                   <img src="/media/{{ player.user.image }}" alt="Imagen Usuario" style="height: 238px; 
                    width: 100%; "/>
                    {% else %}
                    <img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/cabin.png' %}" alt="Log Cabin" style="height: 238px; 
@@ -50,8 +52,8 @@
                                             <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                                             <div class="divider-custom-line"></div>
                                         </div>
-                                        <!-- Portfolio Modal - Image-->{% if user.image %}
-                                                                            <img src="/media/{{ user.image }}" alt="Log Cabin" style="height: 240px; width: 100%; "/>
+                                        <!-- Portfolio Modal - Image-->{% if player.user.image %}
+                                                                            <img src="/media/{{ player.user.image }}" alt="Log Cabin" style="height: 240px; width: 100%; "/>
                                                                         {% else %}
                                                                             <img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/cabin.png' %}" alt="Log Cabin"/>
                                                                         {% endif %}
@@ -59,10 +61,13 @@
                                         <br>
                                         <p class="mb-5"><h2></h2>
                                             <ul>
-                                                <li style="list-style: none"><b>Nombre:</b> {{ user.username }}</li>
-                                                <li style="list-style: none"><b>Email:</b> {{ user.email }}</li>
-                                                <li style="list-style: none"><b>Fecha de nacimiento:</b> {{ User.fnac }}</li>
-                                                <li style="list-style: none"><b>Información:</b> {{ user.description }}</li>
+                                                <li style="list-style: none"><b>Nombre:</b> {{ player.user }}</li>
+                                                <li style="list-style: none"><b>Email:</b> {{ player.user.email }}</li>
+                                                <li style="list-style: none"><b>Fecha de nacimiento:</b> {{ player.user.fnac }}</li>
+                                                <li style="list-style: none"><b>Información:</b> {{ player.user.description }}</li>
+                                                <li style="list-style: none"><b>Riot:</b> {{ player.riot }}</li>
+                                                <li style="list-style: none"><b>Primary rol:</b> {{ player.primary_rol }}</li>
+                                                <li style="list-style: none"><b>Experience:</b> {{ player.experience }}</li>
                                             </ul></p>
                                         <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
                                     </div>
@@ -72,6 +77,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
