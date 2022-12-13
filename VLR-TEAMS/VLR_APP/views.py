@@ -10,7 +10,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
-
+from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm
 # Create your views here.
 
@@ -23,6 +23,14 @@ class DefaultView(TemplateView):
 class MarketplaceListView(ListView):
     model = Player
     template_name="VLR_APP/marketplace.html"
+
+class search(ListView):
+    model = User
+    template_name="VLR_APP/search.html"
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        object_list=User.objects.filter(Q(username__in=[query]))
+        return object_list
 #TEAMS <--TERMINADO-->
 class TeamListView(ListView):
     model = Team

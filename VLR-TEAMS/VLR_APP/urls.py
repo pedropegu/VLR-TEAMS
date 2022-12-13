@@ -8,6 +8,7 @@ from django.conf import settings
 urlpatterns = [
     path('', DefaultView.as_view(), name="home"),
     path('marketplace/', MarketplaceListView.as_view(), name="marketplace"),
+    path('marketplace/search/', search.as_view(), name="search"),
     #TEAM
     path('teams/',TeamListView.as_view(), name="team-list"),
     path('teams/<int:pk>/', TeamListViewDetail.as_view(), name='team-detail'),
