@@ -40,20 +40,19 @@ class TeamUpdateView(UserPassesTestMixin,UpdateView):
     success_url = reverse_lazy('vlr:team-list')
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Add blank forms to context with prefixes
-        #query = Player.objects.all()
+
         context["players"] = PlayerTeam(prefix="players")
-        #context['queryset'] = query
+        context["delete"] = PlayerTeamDelete(prefix="delete")
+
         return context
 
     def post(self, request, *args, **kwargs):
-        # Get object and context
+
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
-        # Process forms
+
         if "players" in request.POST:
-            # Get the form object with prefix and pass it the POST data to \
-            # validate and clean etc.
+
             form = PlayerTeam(request.POST, prefix="players")
             if User.objects.filter(username=form.data["players-user"])[0]:
                 pk=User.objects.filter(username=form.data["players-user"])[0].pk
@@ -64,7 +63,18 @@ class TeamUpdateView(UserPassesTestMixin,UpdateView):
                     player.save()
             else:
                 return False
-        # Pass context back to render_to_response() including any invalid forms
+        if "delete" in request.POST:
+
+            form = PlayerTeamDelete(request.POST, prefix="delete")
+            if User.objects.filter(username=form.data["delete-user"])[0]:
+                pk=User.objects.filter(username=form.data["delete-user"])[0].pk
+                player = Player.objects.filter(user=pk)[0]
+                if player.team and player.team==Team.objects.filter(name=form.data["name"])[0]:
+                    player.team_id = None
+                    player.searching = True
+                    player.save()
+            else:
+                return False
         return self.render_to_response(context)
 
 
@@ -151,7 +161,7 @@ class DirectivoCreateView(LoginRequiredMixin,UserPassesTestMixin,CreateView):
         obj = form.save(commit=False)
         obj.user = self.request.user
         obj.save()
-        return HttpResponseRedirect(reverse_lazy('vlr:team-add'))
+        return HttpResponseRedirect(reverse_lazy('vlr:home'))
     def test_func(self): #COMPROBAR SI ES EL USUARIO (ERROR 403: FORBIDDEN)
 
         return True if not Player.objects.filter(user=self.request.user.pk) else False
@@ -188,7 +198,7 @@ class PlayerCreateView(UserPassesTestMixin,LoginRequiredMixin,CreateView):
         return HttpResponseRedirect(reverse_lazy('vlr:home'))
     def test_func(self): #COMPROBAR SI ES EL USUARIO (ERROR 403: FORBIDDEN)
 
-        return True if not Directivo.objects.get(pk=self.request.user.pk) else False
+        return True if not Directivo.objects.filter(pk=self.request.user.pk) else False
 class PlayerDeleteView(UserPassesTestMixin,DeleteView):
     model = Player
     success_url = reverse_lazy('vlr:players-list')
