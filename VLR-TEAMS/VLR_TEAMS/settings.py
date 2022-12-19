@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    'betterforms',
     'rest_framework',
     'crispy_forms',
     'django_extensions',

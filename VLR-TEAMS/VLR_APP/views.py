@@ -35,15 +35,46 @@ class TeamListView(ListView):
 class TeamListViewDetail(DetailView):
     queryset = Team.objects.all()
 class TeamUpdateView(UserPassesTestMixin,UpdateView):
-    queryset = Team.objects.all()
-    fields=["name","foundation_date","city","info"]
+    model = Team
+    fields = '__all__'
     success_url = reverse_lazy('vlr:team-list')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add blank forms to context with prefixes
+        #query = Player.objects.all()
+        context["players"] = PlayerTeam(prefix="players")
+        #context['queryset'] = query
+        return context
+
+    def post(self, request, *args, **kwargs):
+        # Get object and context
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        # Process forms
+        if "players" in request.POST:
+            # Get the form object with prefix and pass it the POST data to \
+            # validate and clean etc.
+            form = PlayerTeam(request.POST, prefix="players")
+            if User.objects.filter(username=form.data["players-user"])[0]:
+                pk=User.objects.filter(username=form.data["players-user"])[0].pk
+                player = Player.objects.filter(user=pk)[0]
+                if not player.team:
+                    player.team_id = Team.objects.filter(name=form.data["name"])[0].pk
+                    player.searching = False
+                    player.save()
+            else:
+                return False
+        # Pass context back to render_to_response() including any invalid forms
+        return self.render_to_response(context)
+
+
+
     def test_func(self): #COMPROBAR SI ES PROPIETARIO (ERROR 403: FORBIDDEN)
         try:
             return self.request.user.directivo.team==Team.objects.get(pk=self.kwargs.get("pk"))
         except:
             return False
-class TeamCreateView(UserPassesTestMixin,CreateView):
+class TeamCreateView(UserPassesTestMixin,CreateView): 
     model = Team
     fields=["name","foundation_date","city","info","image"]
 
@@ -61,7 +92,6 @@ class TeamCreateView(UserPassesTestMixin,CreateView):
             return Directivo.objects.get(pk=self.request.user.pk) and not Directivo.objects.get(pk=self.request.user.pk).team
         except:
             return False
-
 class TeamDeleteView(UserPassesTestMixin,DeleteView):
     model = Team
     success_url = reverse_lazy('vlr:team-list')
@@ -124,7 +154,7 @@ class DirectivoCreateView(LoginRequiredMixin,UserPassesTestMixin,CreateView):
         return HttpResponseRedirect(reverse_lazy('vlr:team-add'))
     def test_func(self): #COMPROBAR SI ES EL USUARIO (ERROR 403: FORBIDDEN)
 
-        return True if not Player.objects.get(pk=self.request.user.pk) else False
+        return True if not Player.objects.filter(user=self.request.user.pk) else False
 class DirectivoDeleteView(UserPassesTestMixin,DeleteView):
     model = Directivo
     success_url = reverse_lazy('vlr:directivo-list')

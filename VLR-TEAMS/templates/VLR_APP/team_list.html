@@ -4,8 +4,11 @@
 {% block content %}
 <section class="page-section portfolio" id="portfolio">
     <div class="container">
-        {% if request.user.directivo %}
+        {% if request.user.directivo and not request.user.directivo.team %}
         <a class="text-secondary mb-0 d-inline-block" href="{% url 'vlr:team-add' %}">Create your Team!</a>
+        {% elif request.user.directivo.team %}
+        <a class="text-secondary mb-0 d-inline-block" href="{% url 'vlr:team-update' request.user.directivo.team_id %}">Edit your Team!</a>
+        <a class="text-secondary mb-0 d-inline-block" href="{% url 'vlr:team-delete' request.user.directivo.team_id %}">Delete your Team!</a>
         {% else %}
         <a class="text-secondary mb-0 d-inline-block" href="{% url 'vlr:directivo-add' %}">Create your Team!</a>
         {% endif %}
@@ -58,8 +61,8 @@
                                             <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                                             <div class="divider-custom-line"></div>
                                         </div>
-                                        <!-- Portfolio Modal - Image-->{% if user.image %}
-                                                                            <img src="/media/{{ user.image }}" alt="Log Cabin" style="height: 240px; width: 100%; "/>
+                                        <!-- Portfolio Modal - Image-->{% if team.image %}
+                                                                            <img src="/media/{{ team.image }}" alt="Log Cabin" style="height: 240px; width: 100%; "/>
                                                                         {% else %}
                                                                             <img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/cabin.png' %}" alt="Log Cabin"/>
                                                                         {%endif %}
