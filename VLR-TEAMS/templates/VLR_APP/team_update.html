@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form method="post" class="col-lg-8 offset-lg-2" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy}}
+    <input type="submit" value="Submit">
+    <!-- {% for query in queryset %}
+    <select>
+    <option value="{{ query }}">{{query}}</option>
+    </select>
+    {% endfor %} -->
+    <br>
+    <br>
+    Agregar usuarios al equipo:
+    {{players|crispy}}
+    <input type="submit" name="{{players.prefix}}" value="Submit" />
+    <br>
+    <br>
+    Eliminar usuarios al equipo:
+    {{delete|crispy}}
+    <input type="submit" name="{{delete.prefix}}" value="Submit" />
+</form>
+{% endblock %}

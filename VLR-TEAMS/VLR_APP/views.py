@@ -18,7 +18,12 @@ from django.contrib.auth.forms import AuthenticationForm
 
 class DefaultView(TemplateView):
     template_name="index.html"
-    model = Team
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        context['players']=Player.objects.all()
+        context['teams']=Team.objects.all()
+        return context
 class MarketplaceListView(ListView):
     model = Player
     template_name="VLR_APP/marketplace.html"
@@ -37,6 +42,7 @@ class TeamListViewDetail(DetailView):
 class TeamUpdateView(UserPassesTestMixin,UpdateView):
     model = Team
     fields = '__all__'
+    template_name="VLR_APP/team_update.html"
     success_url = reverse_lazy('vlr:team-list')
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

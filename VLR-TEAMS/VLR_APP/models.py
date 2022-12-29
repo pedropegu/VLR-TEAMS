@@ -12,7 +12,7 @@ class User(AbstractUser):
     description = models.CharField(max_length=200,blank=True,null=True)
     image = models.ImageField(upload_to='img',null=True,blank=True)
     def get_absolute_url(self):
-        return reverse('vlr:client-detail', kwargs={'pk': self.pk})
+        return reverse('vlr:client-update', kwargs={'pk': self.pk})
     
 
     def __str__(self) -> str:

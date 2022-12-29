@@ -17,6 +17,7 @@ queryset = Player.objects.all()
 for query in queryset:
     choice_player[query]=query
 choice_player = [(k, v) for k, v in choice_player.items()]
+
 class PlayerTeam(forms.Form):
     user = forms.MultipleChoiceField(choices = choice_player, required=False)
 class PlayerTeamDelete(forms.Form):

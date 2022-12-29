@@ -31,8 +31,8 @@
                         <li class="nav-item mx-0 mr-5"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">ABOUT</a>
                         </li>
                         {% if not request.user.is_authenticated %}
-                        <li class="nav-item mx-0 mr-5"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"></a></li>
-                        <li class="nav-item mx-0 mr-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"></a></li>
+                        <li class="nav-item mx-0 mr-5"></li>
+                        <li class="nav-item mx-0 mr-1"></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'login' %}">LOGIN</a>
                         </li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'vlr:client-add' %}">REGISTER</a>
@@ -67,8 +67,7 @@
                 <p class="pre-wrap masthead-subheading font-weight-light mb-0">FIND PLAYERS OR TEAMS.</p>
             </div>
         </header>
-        <section class="page-section portfolio" id="portfolio">
-            <div class="container">
+        <section class="page-section portfolio" id="portfolio"> 
                 <!-- Portfolio Section Heading-->
                 <div class="text-center">
                     <h2 class="page-section-heading text-secondary mb-0 d-inline-block">MARKETPLACE</h2>
@@ -82,48 +81,66 @@
                 <!-- Portfolio Grid Items-->
                 <div class="row justify-content-center">
                     <!-- Portfolio Items-->
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal0">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/cabin.png' %}" alt="Log Cabin"/>
+                    {% for player in players %}
+
+            {% if player.searching %}
+            <div class="col-md-6 col-lg-4 mb-5">
+                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal{{ forloop.counter0 }}">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                    </div>
+                    {% if player.user.image %}
+                   <img src="/media/{{ player.user.image }}" alt="Imagen Usuario" style="height: 238px; 
+                   width: 100%; "/>
+                   {% else %}
+                   <img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/cabin.png' %}" alt="Log Cabin" style="height: 238px; 
+                   width: 100%; "/>
+                   {% endif %}
+                </div>
+            </div>
+            <div class="portfolio-modal modal fade" id="portfolioModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal1Label" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                        <div class="modal-body text-center">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8">
+                                        <!-- Portfolio Modal - Title-->
+                                        <h2 class="portfolio-modal-title text-secondary mb-0">{{ player.user.username }}</h2>
+                                        <!-- Icon Divider-->
+                                        <div class="divider-custom">
+                                            <div class="divider-custom-line"></div>
+                                            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                            <div class="divider-custom-line"></div>
+                                        </div>
+                                        <!-- Portfolio Modal - Image-->{% if player.user.image %}
+                                                                            <img src="/media/{{ player.user.image }}" alt="Log Cabin" style="height: 250px; width: 33%; "/>
+                                                                        {% else %}
+                                                                            <img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/cabin.png' %}" alt="Log Cabin"/>
+                                                                        {% endif %}
+                                        <!-- Portfolio Modal - Text-->
+                                        <br>
+                                        <p class="mb-5"><h2></h2>
+                                            <ul>
+                                                <li style="list-style: none"><b>Nombre:</b> {{ player.user }}</li>
+                                                <li style="list-style: none"><b>Email:</b> {{ player.user.email }}</li>
+                                                <li style="list-style: none"><b>Fecha de nacimiento:</b> {{ player.user.fnac }}</li>
+                                                <li style="list-style: none"><b>Información:</b> {{ player.user.description }}</li>
+                                                <li style="list-style: none"><b>Riot:</b> {{ player.riot }}</li>
+                                                <li style="list-style: none"><b>Primary rol:</b> {{ player.primary_rol }}</li>
+                                                <li style="list-style: none"><b>Experience:</b> {{ player.experience }}</li>
+                                            </ul></p>
+                                        <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/cake.png' %}" alt="Tasty Cake"/>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/circus.png' %}" alt="Circus Tent"/>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/game.png' %}" alt="Controller"/>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/safe.png' %}" alt="Locked Safe"/>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/submarine.png' %}" alt="Submarine"/>
-                        </div>
-                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
                 </div>
                 <div class="row justify-content-center">
                     <button  onclick="window.location.href='{% url 'vlr:marketplace' %}';" class="btn btn-danger btn-lg" role="button" aria-disabled="true">SEE MORE</button>
@@ -131,168 +148,6 @@
             </div>
         </section>
         <!-- Portfolio Modal.-->
-        <div class="portfolio-modal modal fade" id="portfolioModal0" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal0Label" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">Log Cabin</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="{% static 'VLR_APP/assets/img/portfolio/cabin.png' %}" alt="Log Cabin"/>
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal1Label" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">Tasty Cake</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="{% static 'VLR_APP/assets/img/portfolio/cake.png' %}" alt="Tasty Cake"/>
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal2Label" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">Circus Tent</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="{% static 'VLR_APP/assets/img/portfolio/circus.png' %}" alt="Circus Tent"/>
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal3Label" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">Controller</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="{% static 'VLR_APP/assets/img/portfolio/game.png' %}" alt="Controller"/>
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal4Label" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">Locked Safe</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="{% static 'VLR_APP/assets/img/portfolio/safe.png' %}" alt="Locked Safe"/>
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal5Label" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
-                    <div class="modal-body text-center">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary mb-0">Submarine</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
-                                    </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="{% static 'VLR_APP/assets/img/portfolio/submarine.png' %}" alt="Submarine"/>
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <section class="page-section bg-primary text-white mb-0" id="about">
             <div class="container">
                 <!-- About Section Heading-->
@@ -311,49 +166,62 @@
                         <!-- Portfolio Grid Items-->
                         <div class="row justify-content-center">
                             <!-- Portfolio Items-->
-                            <div class="col-md-6 col-lg-4 mb-5">
-                                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal0">
-                                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                                    </div><img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/cabin.png' %}" alt="Log Cabin"/>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4 mb-5">
-                                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
-                                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                                    </div><img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/cake.png' %}" alt="Tasty Cake"/>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4 mb-5">
-                                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
-                                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                                    </div><img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/circus.png' %}" alt="Circus Tent"/>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4 mb-5">
-                                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
-                                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                                    </div><img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/game.png' %}" alt="Controller"/>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4 mb-5">
-                                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
-                                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                                    </div><img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/safe.png' %}" alt="Locked Safe"/>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4 mb-5">
-                                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
-                                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                                    </div><img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/submarine.png' %}" alt="Submarine"/>
+            {% for team in teams %}
+            
+            <div class="col-md-6 col-lg-4 mb-5">
+                <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal{{ forloop.counter5000 }}">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                        <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                    </div>
+                    {% if team.image %}
+                   <img src="/media/{{ team.image }}" alt="Log Cabin" style="height: 238px; 
+                   width: 100%; "/>
+                   {% else %}
+                   <img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/cabin.png' %}" alt="Log Cabin" style="height: 238px; 
+                   width: 100%; "/>
+                   {%endif %}
+                </div>
+            </div>
+            <div class="portfolio-modal modal fade" id="portfolioModal{{ forloop.counter5000 }}" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal1Label" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                        <div class="modal-body text-center">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8">
+                                        <!-- Portfolio Modal - Title-->
+                                        <h2 class="portfolio-modal-title text-secondary mb-0">Tasty Cake</h2>
+                                        <!-- Icon Divider-->
+                                        <div class="divider-custom">
+                                            <div class="divider-custom-line"></div>
+                                            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                            <div class="divider-custom-line"></div>
+                                        </div>
+                                        <!-- Portfolio Modal - Image-->{% if team.image %}
+                                                                            <img src="/media/{{ team.image }}" alt="Log Cabin" style="height: 240px; width: 100%; "/>
+                                                                        {% else %}
+                                                                            <img class="img-fluid" src="{% static 'VLR_APP/assets/img/portfolio/cabin.png' %}" alt="Log Cabin"/>
+                                                                        {%endif %}
+                                        <!-- Portfolio Modal - Text-->
+                                        <br>
+                                        <p class="mb-5"><h2></h2>
+                                            <ul class="text-dark">
+                                                <li style="list-style: none"><b>Nombre:</b> {{ team.name }}</li>
+                                                <li style="list-style: none"><b>Ciudad:</b> {{ team.city }}</li>
+                                                <li style="list-style: none"><b>Fecha de fundación:</b> {{ team.foundation_date }}</li>
+                                                <li style="list-style: none"><b>Información:</b> {{ team.info }}</li>
+                                            </ul></p>
+                                        <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            </div>
                         <div class="row justify-content-center">
                             <button onclick="window.location.href='{% url 'vlr:team-list' %}';" class="btn btn-light btn-lg" role="button" aria-disabled="true">SEE MORE</button>
                        </div>
@@ -365,7 +233,7 @@
             <div class="container">
                 <!-- Contact Section Heading-->
                 <div class="text-center">
-                    <h2 class="page-section-heading text-secondary d-inline-block mb-0">ABOUT</h2>
+                    <h2 class="page-section-heading text-secondary d-inline-block mb-0">ANUNCIOS</h2>
                 </div>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
@@ -374,11 +242,19 @@
                     <div class="divider-custom-line"></div>
                 </div>
                 <!-- Contact Section Content-->
+
+                
                 <div class="row justify-content-center">
                     <div class="col-lg-4">
-                        <div class="d-flex flex-column align-items-center">
-                            <div class="icon-contact mb-3"><i class="far fa-envelope"></i></div>
-                            <div class="text-muted"></div><a id="mail" class="lead font-weight-bold" href="mailto:pedro.peralta.guerrero.alu@iesfernandoaguilar.es">Click para enviar</a>
+                        <div class="list-group">
+                            <p class="list-group-item">
+                              <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">List group item heading</h5>
+                                <small>3 days ago</small>
+                              </div>
+                              <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                              <small>Donec id elit non mi porta.</small>
+                            </p>
                         </div>
                     </div>
                 </div>
