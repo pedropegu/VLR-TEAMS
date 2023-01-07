@@ -20,9 +20,9 @@ class DefaultView(TemplateView):
     template_name="index.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
-        context['players']=Player.objects.all()
-        context['teams']=Team.objects.all()
+        context['anuncios']=Anuncio.objects.all().order_by('date').values()[0:7]
+        context['players']=Player.objects.all()[0:7]
+        context['teams']=Team.objects.all()[0:7]
         return context
 class MarketplaceListView(ListView):
     model = Player
@@ -92,12 +92,12 @@ class TeamUpdateView(UserPassesTestMixin,UpdateView):
             return False
 class TeamCreateView(UserPassesTestMixin,CreateView): 
     model = Team
-    fields=["name","foundation_date","city","info","image"]
+    fields='__all__'
 
     def form_valid(self, form):
         obj = form.save(commit=False)
-        directivo = Directivo.objects.get(pk=self.request.user.pk)
         obj.save()
+        directivo = Directivo.objects.get(user=self.request.user.pk)
         #AÑADIR EL EQUIPO AL DIRECTIVO.
         directivo.team_id = obj.pk
         directivo.save()
@@ -105,13 +105,13 @@ class TeamCreateView(UserPassesTestMixin,CreateView):
 
     def test_func(self): #COMPROBAR SI ES DIRECTIVO (ERROR 403: FORBIDDEN)
         try:
-            return Directivo.objects.get(pk=self.request.user.pk) and not Directivo.objects.get(pk=self.request.user.pk).team
+            return Directivo.objects.get(user=self.request.user.pk) and not Directivo.objects.get(user=self.request.user.pk).team
         except:
             return False
 class TeamDeleteView(UserPassesTestMixin,DeleteView):
     model = Team
     success_url = reverse_lazy('vlr:team-list')
-
+    
     def test_func(self): #COMPROBAR SI ES PROPIETARIO (ERROR 403: FORBIDDEN)
         try:
             return self.request.user.directivo.team==Team.objects.get(pk=self.kwargs.get("pk"))
@@ -174,9 +174,13 @@ class DirectivoCreateView(LoginRequiredMixin,UserPassesTestMixin,CreateView):
 class DirectivoDeleteView(UserPassesTestMixin,DeleteView):
     model = Directivo
     success_url = reverse_lazy('vlr:directivo-list')
+    # def form_valid(self, form):
+    #     obj = form.save(commit=False)
+    #     team = obj.team_id
+    #     team.delete()
     def test_func(self): #COMPROBAR SI ES EL USUARIO (ERROR 403: FORBIDDEN)
         try:
-            return Directivo.objects.get(pk=self.request.user.pk)==Directivo.objects.get(pk=self.kwargs.get("pk"))
+            return Directivo.objects.get(user=self.request.user.pk)==Directivo.objects.get(user=self.kwargs.get("pk"))
         except:
             return False
 #JUGADORES

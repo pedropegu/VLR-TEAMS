@@ -11,7 +11,11 @@ class SignUpForm(UserCreationForm):
       labels = {
             'fnac': _('Date of birth'),
         }
+class TeamCreateForm(forms.ModelForm):
 
+   class Meta:
+      model = Team  
+      fields = ('name', 'foundation_date', 'city','info','image')
 choice_player = {}
 queryset = Player.objects.all()
 for query in queryset:

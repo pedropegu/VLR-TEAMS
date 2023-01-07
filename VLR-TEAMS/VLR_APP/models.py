@@ -27,11 +27,11 @@ class Team(models.Model):
     city = models.CharField(max_length=30)
 
     info = models.CharField(max_length=300)
-    image = models.ImageField(upload_to='img',null=True,blank=True)
+    image = models.ImageField(upload_to='teams',null=True,blank=True)
 
 
     def get_absolute_url(self):
-        return reverse('team-detail', kwargs={'pk': self.pk})
+        return reverse('vlr:team-detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.name
@@ -126,7 +126,7 @@ class Anuncio(models.Model):
 
     title = models.CharField(max_length=30)
     message = models.CharField(max_length=500)
-
+    date=models.DateField(null=True)
     def get_absolute_url(self):
         return reverse('anuncios-detail', kwargs={'pk': self.pk})
 
