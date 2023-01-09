@@ -51,4 +51,5 @@ urlpatterns = [
     path('anuncios/add/', AnuncioCreateView.as_view(), name='anuncios-add'),
     path('anuncios/<int:pk>/edit', AnuncioUpdateView.as_view(), name='anuncios-update'),
     path('anuncios/<int:pk>/delete', AnuncioDeleteView.as_view(), name='anuncios-delete'),
+    path('anuncios/search/', search_anuncios.as_view(), name="search_ann"),
 ]

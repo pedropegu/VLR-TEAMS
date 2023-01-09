@@ -2,17 +2,21 @@
 {% load static %}
 {% block title %}TEAMS{% endblock %}
 {% block content %}
-<section class="page-section portfolio" id="portfolio">
-    <div class="container">
+<div class="container">
+    <div class="row justify-content-center">
         {% if request.user.directivo and not request.user.directivo.team %}
-        <a class="text-secondary mb-0 d-inline-block" href="{% url 'vlr:team-add' %}">Create your Team!</a>
+        <button  onclick="window.location.href='{% url 'vlr:team-add' %}';" class="btn btn-danger btn-lg" role="button" aria-disabled="true">Create your Team!</button>
         {% elif request.user.directivo.team %}
-        <a class="text-secondary mb-0 d-inline-block" href="{% url 'vlr:team-update' request.user.directivo.team_id %}">Edit your Team!</a>
-        <a class="text-secondary mb-0 d-inline-block" href="{% url 'vlr:team-delete' request.user.directivo.team_id %}">Delete your Team!</a>
+        <button  onclick="window.location.href='{% url 'vlr:team-update' request.user.directivo.team_id %}';" class="btn btn-danger btn-lg mx-1 mt-1" role="button" aria-disabled="true">Edit your Team!</button>
+        <br>
+        <br>
+        <button  onclick="window.location.href='{% url 'vlr:team-delete' request.user.directivo.team_id %}';" class="btn btn-danger btn-lg mx-1 mt-1" role="button" aria-disabled="true">Delete your Team!</button>
         {% else %}
-        <a class="text-secondary mb-0 d-inline-block" href="{% url 'vlr:directivo-add' %}">Create your Team!</a>
+        <button  onclick="window.location.href='{% url 'vlr:directivo-add' %}';" class="btn btn-danger btn-lg" role="button" aria-disabled="true">Create your Team!</button>
         {% endif %}
     </div>
+</div>
+<section class="page-section portfolio" id="portfolio">
         <!-- Portfolio Section Heading-->
         <div class="text-center">
     <div class="container">
@@ -54,7 +58,7 @@
                                 <div class="row justify-content-center">
                                     <div class="col-lg-8">
                                         <!-- Portfolio Modal - Title-->
-                                        <h2 class="portfolio-modal-title text-secondary mb-0">Tasty Cake</h2>
+                                        <h2 class="portfolio-modal-title text-secondary mb-0">{{ team.name }}</h2>
                                         <!-- Icon Divider-->
                                         <div class="divider-custom">
                                             <div class="divider-custom-line"></div>
@@ -130,7 +134,7 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <!-- Portfolio Modal - Title-->
-                                <h2 class="portfolio-modal-title text-secondary mb-0">Tasty Cake</h2>
+                                <h2 class="portfolio-modal-title text-secondary mb-0">{{ request.user.directivo.team.name }}</h2>
                                 <!-- Icon Divider-->
                                 <div class="divider-custom">
                                     <div class="divider-custom-line"></div>

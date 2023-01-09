@@ -234,7 +234,7 @@
             <div class="container">
                 <!-- Contact Section Heading-->
                 <div class="text-center">
-                    <h2 class="page-section-heading text-secondary d-inline-block mb-0">ANNOUNCEMENTS</h2>
+                    <h2 class="page-section-heading text-secondary d-inline-block mb-0">BROADCAST</h2>
                 </div>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
@@ -258,14 +258,20 @@
                                 <small>{{ anuncio.date }}</small>
                               </div>
                               <p class="mb-1">{{ anuncio.message }}</p>
-                              <small>{{ anuncio.directivo.team }}</small>
+                              {% for dir in directivos %}
+                                {% if anuncio.directivo_id == dir.pk %}
+                                    <small>{{ dir.team }}</small>
+                                {% endif %}
+                              {%endfor%}
                             </p>
                         </div>
-
                     </div>
                 </div>
                 {% endfor %}
             </div>
+            <div class="row justify-content-center">
+                <button  onclick="window.location.href='{% url 'vlr:anuncios-list' %}';" class="btn btn-danger btn-lg" role="button" aria-disabled="true">SEE MORE</button>
+           </div>
         </section>
         <footer class="footer text-center">
             <div class="container">

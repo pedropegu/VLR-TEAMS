@@ -12,6 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.postgres.search import TrigramWordSimilarity
 # Create your views here.
 
 #DEFAULT VIEW
@@ -20,9 +21,10 @@ class DefaultView(TemplateView):
     template_name="index.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['anuncios']=Anuncio.objects.all().order_by('date').values()[0:7]
+        context['anuncios']=Anuncio.objects.all().order_by('-date').values()[0:7]
         context['players']=Player.objects.all()[0:7]
         context['teams']=Team.objects.all()[0:7]
+        context['directivos']=Directivo.objects.all()
         return context
 class MarketplaceListView(ListView):
     model = Player
@@ -34,6 +36,13 @@ class search(ListView):
         query = self.request.GET.get("q")
         object_list=User.objects.filter(Q(username__icontains=query))
         return object_list
+class search_anuncios(ListView):
+    model = Anuncio
+    template_name="VLR_APP/search_ann.html"
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        object_list= Anuncio.objects.annotate(similarity=TrigramWordSimilarity(query, 'title'), ).filter(similarity__gt=0.3).order_by('-similarity') | Anuncio.objects.annotate(similarity=TrigramWordSimilarity(query, 'message'), ).filter(similarity__gt=0.3).order_by('-similarity')
+        return object_list
 #TEAMS <--TERMINADO-->
 class TeamListView(ListView):
     model = Team
@@ -44,12 +53,13 @@ class TeamUpdateView(UserPassesTestMixin,UpdateView):
     fields = '__all__'
     template_name="VLR_APP/team_update.html"
     success_url = reverse_lazy('vlr:team-list')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context["players"] = PlayerTeam(prefix="players")
-        context["delete"] = PlayerTeamDelete(prefix="delete")
-
+        context["add"] = TeamAdd(prefix="add")
+        context["players"] = Players.objects.all()
+        context["directivos"] = Directivo.objects.filter(position='MANAGER')
         return context
 
     def post(self, request, *args, **kwargs):
@@ -57,30 +67,42 @@ class TeamUpdateView(UserPassesTestMixin,UpdateView):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
 
-        if "players" in request.POST:
+        if "add" in request.POST:
+            form = TeamAdd(request.POST, prefix="add")
 
-            form = PlayerTeam(request.POST, prefix="players")
-            if User.objects.filter(username=form.data["players-user"])[0]:
-                pk=User.objects.filter(username=form.data["players-user"])[0].pk
-                player = Player.objects.filter(user=pk)[0]
-                if not player.team:
-                    player.team_id = Team.objects.filter(name=form.data["name"])[0].pk
-                    player.searching = False
-                    player.save()
-            else:
-                return False
-        if "delete" in request.POST:
+            if len(User.objects.filter(username=form.data["add-añadir"]))!=0:
+                pk=User.objects.filter(username=form.data["add-añadir"])[0].pk
 
-            form = PlayerTeamDelete(request.POST, prefix="delete")
-            if User.objects.filter(username=form.data["delete-user"])[0]:
-                pk=User.objects.filter(username=form.data["delete-user"])[0].pk
-                player = Player.objects.filter(user=pk)[0]
-                if player.team and player.team==Team.objects.filter(name=form.data["name"])[0]:
-                    player.team_id = None
-                    player.searching = True
-                    player.save()
-            else:
-                return False
+                if len(Player.objects.filter(user=pk))!=0:
+                    user = Player.objects.filter(user=pk)[0]
+                    if not user.team:
+                        user.team_id = Team.objects.filter(name=form.data["name"])[0].pk
+                        user.searching = False
+                        user.save()
+
+                elif len(Directivo.objects.filter(user=pk))!=0:
+                    user = Directivo.objects.filter(user=pk)[0]
+                    if not user.team:
+                        user.team_id = Team.objects.filter(name=form.data["name"])[0].pk
+                        user.save()
+
+            if len(User.objects.filter(username=form.data["add-eliminar"]))!=0:
+                pk=User.objects.filter(username=form.data["add-eliminar"])[0].pk
+                
+                if len(Player.objects.filter(user=pk))!=0:
+                    user = Player.objects.filter(user=pk)[0]
+
+                    if user.team and user.team==Team.objects.filter(name=form.data["name"])[0]:
+                        user.team_id = None
+                        user.searching = True
+                        user.save()
+
+                elif Den(Directivo.objects.filter(user=pk))!=0:
+                    user = Directivo.objects.filter(user=pk)[0]
+
+                    if user.team and user.team==Team.objects.filter(name=form.data["name"])[0]:
+                        user.team_id = None
+                        user.save()
         return self.render_to_response(context)
 
 
@@ -105,7 +127,7 @@ class TeamCreateView(UserPassesTestMixin,CreateView):
 
     def test_func(self): #COMPROBAR SI ES DIRECTIVO (ERROR 403: FORBIDDEN)
         try:
-            return Directivo.objects.get(user=self.request.user.pk) and not Directivo.objects.get(user=self.request.user.pk).team
+            return Directivo.objects.get(user=self.request.user.pk) and Directivo.objects.get(user=self.request.user.pk).position=='CEO' and not Directivo.objects.get(user=self.request.user.pk).team
         except:
             return False
 class TeamDeleteView(UserPassesTestMixin,DeleteView):
@@ -155,6 +177,7 @@ class DirectivoDetailView(DetailView):
 class DirectivoUpdateView(UserPassesTestMixin,UpdateView):
     queryset = Directivo.objects.all()
     fields=["position","experience"]
+    success_url = reverse_lazy('vlr:home')
     def test_func(self): #COMPROBAR SI ES EL USUARIO (ERROR 403: FORBIDDEN)
         try:
             return Directivo.objects.get(pk=self.request.user.pk)==Directivo.objects.get(pk=self.kwargs.get("pk"))
@@ -167,17 +190,22 @@ class DirectivoCreateView(LoginRequiredMixin,UserPassesTestMixin,CreateView):
         obj = form.save(commit=False)
         obj.user = self.request.user
         obj.save()
-        return HttpResponseRedirect(reverse_lazy('vlr:home'))
+        return HttpResponseRedirect(reverse_lazy('vlr:team-list'))
     def test_func(self): #COMPROBAR SI ES EL USUARIO (ERROR 403: FORBIDDEN)
 
         return True if not Player.objects.filter(user=self.request.user.pk) else False
 class DirectivoDeleteView(UserPassesTestMixin,DeleteView):
     model = Directivo
     success_url = reverse_lazy('vlr:directivo-list')
-    # def form_valid(self, form):
-    #     obj = form.save(commit=False)
-    #     team = obj.team_id
-    #     team.delete()
+    def form_valid(self,form):
+        direct= Directivo.objects.get(pk=self.request.user.directivo.pk)
+        if len(Team.objects.filter(pk=self.request.user.directivo.team_id))!=0:
+            team = Team.objects.get(pk=self.request.user.directivo.team_id)
+            team.delete()
+            direct.delete()
+        else:
+            direct.delete()
+        return HttpResponseRedirect(reverse_lazy('vlr:home'))
     def test_func(self): #COMPROBAR SI ES EL USUARIO (ERROR 403: FORBIDDEN)
         try:
             return Directivo.objects.get(user=self.request.user.pk)==Directivo.objects.get(user=self.kwargs.get("pk"))
@@ -232,6 +260,7 @@ class CoachCreateView(CreateView):
 class CoachDeleteView(DeleteView):
     model = Coache
     success_url = reverse_lazy('coach-list')
+
 #ANUNCIOS
 class AnuncioListView(ListView):
     model = Anuncio
@@ -241,9 +270,25 @@ class AnuncioDetailView(DetailView):
 class AnuncioUpdateView(UpdateView):
     queryset = Anuncio.objects.all()
     fields=["title","message"]
-class AnuncioCreateView(CreateView):
+class AnuncioCreateView(CreateView, UserPassesTestMixin):
     model = Anuncio
-    fields=["title","message","directivo"]
+    fields=["title","message"]
+    def form_valid(self,form):
+        obj = form.save(commit=False)
+        obj.directivo = self.request.user.directivo
+        obj.save()
+        return HttpResponseRedirect(reverse_lazy('vlr:home'))
+
+    def test_func(self): #COMPROBAR SI ES EL USUARIO (DIRECTIVO) (ERROR 403: FORBIDDEN)
+        try:
+            return Directivo.objects.get(user=self.request.user.pk) and Directivo.objects.get(user=self.request.user.pk).team
+        except:
+            return False
 class AnuncioDeleteView(DeleteView):
     model = Anuncio
     success_url = reverse_lazy('anuncios-list')
+    def test_func(self): #COMPROBAR SI ES PROPIETARIO (ERROR 403: FORBIDDEN)
+        try:
+            return Anuncio.objects.get(directivo=self.request.user.directivo.pk)==Anuncio.objects.get(directivo=self.kwargs.get("pk"))
+        except:
+            return False

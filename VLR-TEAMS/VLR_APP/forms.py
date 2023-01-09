@@ -16,13 +16,8 @@ class TeamCreateForm(forms.ModelForm):
    class Meta:
       model = Team  
       fields = ('name', 'foundation_date', 'city','info','image')
-choice_player = {}
-queryset = Player.objects.all()
-for query in queryset:
-    choice_player[query]=query
-choice_player = [(k, v) for k, v in choice_player.items()]
 
-class PlayerTeam(forms.Form):
-    user = forms.MultipleChoiceField(choices = choice_player, required=False)
-class PlayerTeamDelete(forms.Form):
-    user = forms.MultipleChoiceField(choices = choice_player, required=False)
+
+class TeamAdd(forms.Form):
+    añadir = forms.CharField(max_length=50,required=False)
+    eliminar = forms.CharField(max_length=50,required=False)
